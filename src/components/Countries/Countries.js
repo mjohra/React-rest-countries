@@ -1,0 +1,36 @@
+import React, { useEffect } from "react";
+import { useState } from "react";
+import Country from "../Country/Country";
+import './Countries.css'
+
+const Countries = () => {
+  const [countries, setCountries] = useState([]);
+
+  useEffect(() => {
+    fetch("https://restcountries.eu/rest/v2/all")
+      .then((res) => res.json())
+      .then((data) => setCountries(data));
+  }, []);
+  return (
+    <div>
+      <h2>Country Available: {countries.length}</h2>
+      
+        <div className="details">
+            {
+          countries.map(country=><Country
+          key={country.alpha3Code}
+            country={country}
+            // name={country.name}
+            // capital={country.capital}
+            // population={country.population}
+            // flag={country.flag}
+          ></Country>
+          )
+          }
+        </div>
+      
+    </div>
+  );
+};
+
+export default Countries;
